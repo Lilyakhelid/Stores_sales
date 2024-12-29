@@ -2623,5 +2623,20 @@
         "MAPE": 3.900366386170854e+19,
         "MAE": 146440.2372723909,
         "R\u00b2": 0.22300360152115328
+    },
+    {
+        "Model": "XGBoost",
+        "Parameters": {
+            "objective": "reg:squarederror",
+            "colsample_bytree": 0.8,
+            "learning_rate": 0.1,
+            "max_depth": 3,
+            "n_estimators": 50,
+            "subsample": 1.0
+        },
+        "NRMSE": 0.08277965636963118,
+        "MAPE": 6.332082549673071e+19,
+        "MAE": 149020.86915668022,
+        "R\u00b2": 0.15924634328677134
     }
 ]
