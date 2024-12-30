@@ -2638,5 +2638,50 @@
         "MAPE": 6.332082549673071e+19,
         "MAE": 149020.86915668022,
         "R\u00b2": 0.15924634328677134
+    },
+    {
+        "Model": "LSTM_multicouches",
+        "Parameters": "3couches lstm 3 dropout",
+        "NRMSE": 0.08788111865753488,
+        "MAPE": 5.05838639666586e+19,
+        "MAE": 171320.50213796174,
+        "R\u00b2": 0.0524269958610154
+    },
+    {
+        "Model": "LSTM",
+        "Parameters": {
+            "units": 50,
+            "activation": "tanh",
+            "val": "recent"
+        },
+        "NRMSE": 0.08394123212804327,
+        "MAPE": 3.1066035071728034e+19,
+        "MAE": 163500.79728682977,
+        "R\u00b2": 0.1354856514172993
+    },
+    {
+        "Model": "LSTM",
+        "Parameters": {
+            "units": 50,
+            "activation": "tanh",
+            "val": "recent"
+        },
+        "NRMSE": 0.07958311144933632,
+        "MAPE": 3.7870627124036985e+19,
+        "MAE": 146400.94901658603,
+        "R\u00b2": 0.22292425088463141
+    },
+    {
+        "Model": "Random_forest",
+        "Parameters": {
+            "max_depth": 5,
+            "min_samples_leaf": 2,
+            "min_samples_split": 10,
+            "n_estimators": 50
+        },
+        "NRMSE": 0.11107838728191789,
+        "MAPE": 1.0271937783582502e+20,
+        "MAE": 286930.3920118509,
+        "R\u00b2": -0.5052245958111543
     }
 ]
