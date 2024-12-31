@@ -1,4 +1,4 @@
-date,sales,onpromotion,oil_price,holiday,diff,Train_Forecast,Train_Forecast_prophet,train_Forecast_LSTM,train_Forecast_XGB,train_Forecast_RF
+date,sales,onpromotion,oil_price,holiday,diff,Train_Forecast_Sarimax,Train_Forecast_prophet,train_Forecast_LSTM,train_Forecast_XGB,train_Forecast_RF
 2013-01-09,302530.809018,0,93.08,0,-193561.608926,438141.92663554073,362176.40981956065,,334607.97,412681.14788246393
 2013-01-10,258982.003049,0,93.81,0,-102479.228075,402795.9101159143,322453.55308643647,,334607.97,412629.5757630195
 2013-01-11,289737.6850845,0,93.6,0,-64721.99200819997,392455.6912648484,338279.2390742505,,334607.97,412629.5757630195
