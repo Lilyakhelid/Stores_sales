@@ -42,3 +42,13 @@ def calculate_metrics(y_true, y_pred):
 def data_stream(df, chunk_size):
     for i in range(0, len(df), chunk_size):
         yield df.iloc[i:i + chunk_size]
+
+def create_sequences(data, window_size):
+    sequences = []
+    labels = []
+    for i in range(len(data) - window_size):
+        seq = data[i:i + window_size]
+        label = data[i + window_size]
+        sequences.append(seq)
+        labels.append(label)
+    return np.array(sequences), np.array(labels)
