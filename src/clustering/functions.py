@@ -6,6 +6,8 @@ import pandas as pd
 from pmdarima import auto_arima
 from sklearn.metrics import mean_squared_error
 from tqdm import tqdm
+from prophet import Prophet
+
 
 
 
@@ -150,3 +152,52 @@ def fit_and_forecast_sarimax(cluster_train, cluster_test, p, d, q, P, D, Q, s):
     test_forecast_values = test_forecast.predicted_mean.values
 
     return train_forecast_values, test_forecast_values
+
+
+
+
+def data_stream(test_data, chunk_size):
+    for i in range(0, len(test_data), chunk_size):
+        yield test_data.iloc[i:i + chunk_size]
+
+
+def rolling_prophet_forecast(series_train, series_test, vars, chunk_size, window_size):
+    """
+    Effectue des prévisions avec une fenêtre glissante à l'aide de Prophet.
+    
+    Args:
+        series_train (DataFrame): Données d'entraînement avec les colonnes spécifiées dans `vars`.
+        series_test (DataFrame): Données de test avec les colonnes spécifiées dans `vars`.
+        vars (list): Liste des colonnes à utiliser, ex. ['date', 'sales'].
+        chunk_size (int): Taille des prévisions futures (par exemple, 7 pour hebdomadaire).
+        window_size (int): Taille de la fenêtre glissante utilisée pour l'entraînement (par exemple, 365 pour une année).
+    
+    Returns:
+        list: Liste des prévisions pour chaque fenêtre glissante.
+    """
+    new_train_data = series_train[vars].reset_index(drop=True)
+    new_train_data.rename(columns={'date': 'ds', 'sales': 'y'}, inplace=True)
+
+    predictions = []
+
+    for new_data in data_stream(series_test, chunk_size):
+
+        new_data = new_data[vars].reset_index(drop=True)
+        new_data.rename(columns={'date': 'ds', 'sales': 'y'}, inplace=True)
+
+        new_train_data = pd.concat([new_train_data, new_data], ignore_index=True).tail(window_size)
+
+        model_prophet = Prophet()
+        model_prophet.add_seasonality(name='weekly', period=7, fourier_order=3)
+        model_prophet.add_seasonality(name='annual', period=365, fourier_order=10)
+
+        model_prophet.fit(new_train_data)
+
+
+        future = model_prophet.make_future_dataframe(periods=chunk_size)
+        forecast = model_prophet.predict(future)
+
+        y_test_pred = forecast.tail(chunk_size)['yhat'].values
+        predictions.append(y_test_pred)
+
+    return predictions
